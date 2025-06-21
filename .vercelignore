@@ -1,0 +1,8 @@
+dataset/
+*.ipynb
+save_model.py
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.local 
