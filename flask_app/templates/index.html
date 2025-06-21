@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mail Spam Detector</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        button { color: aliceblue; background-color: blue; padding: 10px 20px; border: none; border-radius: 4px; }
+        textarea { width: 60%; min-height: 100px; margin-bottom: 10px; }
+        .result-spam { color: red; }
+        .result-ham { color: green; }
+        .error { color: orange; }
+    </style>
+</head>
+<body>
+    <h1>Mail Spam Detector</h1>
+    <div>
+        <form method="POST" action="/predict">
+            <textarea name="email" placeholder="Paste your email message here..." autocomplete="off">{{ email or '' }}</textarea>
+            <div>
+                <button type="submit">Predict</button>
+                <a href="/">Reset</a>
+            </div>
+        </form>
+    </div>
+    <div>
+        {% if error %}
+            <h2 class="error">{{ error }}</h2>
+        {% endif %}
+        {% if prediction is not none %}
+            {% if prediction == 1 %}
+                <h2 class="result-spam">Spam Detected!</h2>
+            {% else %}
+                <h2 class="result-ham">Not Spam (Ham)</h2>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
