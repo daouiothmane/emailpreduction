@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mail Spam Detector</title>
+    <style>
+        body { 
+            text-align: center; 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button { 
+            color: white; 
+            background-color: #007bff; 
+            padding: 12px 24px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        textarea { 
+            width: 100%; 
+            min-height: 120px; 
+            margin-bottom: 15px; 
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        .result-spam { 
+            color: #dc3545; 
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .result-ham { 
+            color: #28a745; 
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .error { 
+            color: #ffc107; 
+            font-weight: bold;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .reset-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .reset-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Mail Spam Detector</h1>
+        <div>
+            <form method="POST" action="/predict">
+                <textarea name="email" placeholder="Paste your email message here to check if it's spam or legitimate..." autocomplete="off">{{ email or '' }}</textarea>
+                <div>
+                    <button type="submit">🔍 Predict</button>
+                    <a href="/" class="reset-link">🔄 Reset</a>
+                </div>
+            </form>
+        </div>
+        <div>
+            {% if error %}
+                <h2 class="error">⚠️ {{ error }}</h2>
+            {% endif %}
+            {% if prediction is not none %}
+                {% if prediction == 1 %}
+                    <h2 class="result-spam">🚨 Spam Detected!</h2>
+                    <p>This message appears to be spam. Please be cautious!</p>
+                {% else %}
+                    <h2 class="result-ham">✅ Not Spam (Ham)</h2>
+                    <p>This message appears to be legitimate.</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html> 
